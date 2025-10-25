@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="weather_button_text">Погода</string>
+    <string name="weather_forecast_title">Прогноз погоды</string>
+    <string name="temperature_format">%d°C</string>
+    <string name="default_weather_description">Ясно</string>
+    <string name="city_name">Москва</string>
+
+    <string name="city_country_placeholder">Город, Страна</string>
+    <string name="humidity_format">Влажность: %d%%</string>
+    <string name="wind_speed_format">Скорость ветра: %.1f км/ч</string>
+    <string name="pressure_format">Давление: %d гПа</string>
+    <string name="sunrise_format">Восход: %s</string>
+    <string name="sunset_format">Закат: %s</string>
+    <string name="weather_fetch_error">Не удалось загрузить данные о погоде: %s</string>
+    <string name="city_search_hint">Введите город</string>
+</resources>

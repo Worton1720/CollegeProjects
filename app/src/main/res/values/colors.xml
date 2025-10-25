@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Weather colors -->
+    <color name="weather_cold">#FF64B5F6</color> <!-- Blue 300 -->
+    <color name="weather_cool">#FF81C784</color> <!-- Green 300 -->
+    <color name="weather_warm">#FFFFB74D</color> <!-- Orange 300 -->
+    <color name="weather_hot">#FFE57373</color>  <!-- Red 300 -->
+    <color name="weather_normal">#FFB0BEC5</color> <!-- Blue Grey 200 -->
+</resources>
