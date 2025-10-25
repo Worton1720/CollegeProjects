@@ -1,2 +1,1 @@
-# CollegeProjects
-My projects for study
+Проекты раскиданы по веткам.
