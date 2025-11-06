@@ -1,24 +1,29 @@
-package com.example.collegeapp.data.remote
+package com.example.collegeapp.features.weather.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+/**
+ * DTO (Data Transfer Objects) для API погоды
+ * Используются только в data слое для сериализации/десериализации JSON
+ */
+
 data class ForecastResponse(
-    @SerializedName("list") val list: List<ForecastItem>,
-    @SerializedName("city") val city: CityData
+    @SerializedName("list") val list: List<ForecastItemDto>,
+    @SerializedName("city") val city: CityDto
 ) : Serializable
 
-data class ForecastItem(
+data class ForecastItemDto(
     @SerializedName("dt") val dt: Long,
-    @SerializedName("main") val main: MainData,
-    @SerializedName("weather") val weather: List<Weather>,
-    @SerializedName("wind") val wind: WindData,
+    @SerializedName("main") val main: MainDataDto,
+    @SerializedName("weather") val weather: List<WeatherDto>,
+    @SerializedName("wind") val wind: WindDataDto,
     @SerializedName("visibility") val visibility: Int,
     @SerializedName("pop") val pop: Double,
     @SerializedName("dt_txt") val dtTxt: String
 ) : Serializable
 
-data class MainData(
+data class MainDataDto(
     @SerializedName("temp") val temp: Double,
     @SerializedName("feels_like") val feelsLike: Double,
     @SerializedName("temp_min") val tempMin: Double,
@@ -27,19 +32,19 @@ data class MainData(
     @SerializedName("humidity") val humidity: Int
 ) : Serializable
 
-data class Weather(
+data class WeatherDto(
     @SerializedName("id") val id: Int,
     @SerializedName("main") val main: String,
     @SerializedName("description") val description: String,
     @SerializedName("icon") val icon: String
 ) : Serializable
 
-data class WindData(
+data class WindDataDto(
     @SerializedName("speed") val speed: Double,
     @SerializedName("deg") val deg: Int
 ) : Serializable
 
-data class CityData(
+data class CityDto(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("country") val country: String,

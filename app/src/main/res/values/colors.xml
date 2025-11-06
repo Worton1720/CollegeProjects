@@ -9,4 +9,10 @@
     <color name="weather_warm">#FFFFB74D</color> <!-- Orange 300 -->
     <color name="weather_hot">#FFE57373</color>  <!-- Red 300 -->
     <color name="weather_normal">#FFB0BEC5</color> <!-- Blue Grey 200 -->
+
+    <!-- Calculator colors -->
+    <color name="calculator_display_background">#FF424242</color> <!-- Dark Grey -->
+    <color name="calculator_button_background">#FF757575</color> <!-- Grey -->
+    <color name="calculator_button_operator">#FFFF9800</color> <!-- Orange -->
+    <color name="calculator_button_equals">#FF4CAF50</color> <!-- Green -->
 </resources>

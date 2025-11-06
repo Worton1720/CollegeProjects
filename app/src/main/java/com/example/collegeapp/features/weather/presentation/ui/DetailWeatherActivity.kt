@@ -1,11 +1,11 @@
-package com.example.collegeapp.ui.weather
+package com.example.collegeapp.features.weather.presentation.ui
 
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.collegeapp.R
-import com.example.collegeapp.data.remote.ForecastItem
 import com.example.collegeapp.databinding.ActivityDetailWeatherBinding
+import com.example.collegeapp.features.weather.domain.model.ForecastItem
 
 class DetailWeatherActivity : AppCompatActivity() {
 
@@ -27,7 +27,7 @@ class DetailWeatherActivity : AppCompatActivity() {
         }
 
         if (forecast != null) {
-            supportActionBar?.title = forecast.dtTxt
+            supportActionBar?.title = forecast.dateTimeText
             displayForecastDetails(forecast)
         }
     }
@@ -38,8 +38,8 @@ class DetailWeatherActivity : AppCompatActivity() {
     }
 
     private fun displayForecastDetails(forecast: ForecastItem) {
-        binding.humidityTextView.text = getString(R.string.humidity_format, forecast.main.humidity)
-        binding.windSpeedTextView.text = getString(R.string.wind_speed_format, forecast.wind.speed)
-        binding.pressureTextView.text = getString(R.string.pressure_format, forecast.main.pressure)
+        binding.humidityTextView.text = getString(R.string.humidity_format, forecast.humidity)
+        binding.windSpeedTextView.text = getString(R.string.wind_speed_format, forecast.windSpeed)
+        binding.pressureTextView.text = getString(R.string.pressure_format, forecast.pressure)
     }
 }

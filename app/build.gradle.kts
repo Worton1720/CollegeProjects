@@ -60,6 +60,9 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")
 
+    // Fragment
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
     // ViewModel & LiveData
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
@@ -71,6 +74,14 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Koin
+    implementation("io.insert-koin:koin-android:3.5.0")
+    implementation("io.insert-koin:koin-androidx-navigation:3.5.0")
+    implementation("io.insert-koin:koin-androidx-workmanager:3.5.0")
+
+    // Exp4j для вычисления математических выражений
+    implementation("net.objecthunter:exp4j:0.4.8")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
