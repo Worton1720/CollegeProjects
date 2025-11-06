@@ -39,4 +39,13 @@
     <string name="button_equals">=</string>
     <string name="button_clear">C</string>
     <string name="button_dot">.</string>
+
+    <!-- Calculator Errors -->
+    <string name="calculator_error_empty_expression">Выражение пустое</string>
+    <string name="calculator_error_division_by_zero">Деление на ноль</string>
+    <string name="calculator_error_invalid_expression">Некорректное выражение</string>
+    <string name="calculator_error_calculation_failed">Ошибка вычисления: %s</string>
+    <string name="calculator_error_unknown">Неизвестная ошибка: %s</string>
+    <string name="calculator_decimal_format">#.##########</string>
+    <string name="todo">TODO</string>
 </resources>

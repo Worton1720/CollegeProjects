@@ -1,5 +1,6 @@
 package com.example.collegeapp.features.calculator.data.repository
 
+import com.example.collegeapp.features.calculator.domain.model.CalculationError
 import com.example.collegeapp.features.calculator.domain.model.CalculationResult
 import com.example.collegeapp.features.calculator.domain.repository.CalculatorRepository
 import net.objecthunter.exp4j.ExpressionBuilder
@@ -11,9 +12,7 @@ import java.text.DecimalFormat
  */
 class CalculatorRepositoryImpl : CalculatorRepository {
 
-    private val decimalFormat = DecimalFormat("#.##########")
-
-    override fun calculate(expression: String): CalculationResult {
+    override fun calculate(expression: String, decimalFormat: String): CalculationResult {
         return try {
             // Заменяем символы × и ÷ на * и /
             val normalizedExpression = expression
@@ -23,7 +22,7 @@ class CalculatorRepositoryImpl : CalculatorRepository {
 
             // Проверка на пустое выражение после нормализации
             if (normalizedExpression.isBlank()) {
-                return CalculationResult.Error("Выражение пустое")
+                return CalculationResult.Error(CalculationError.EMPTY_EXPRESSION)
             }
 
             // Создаём и вычисляем выражение с помощью exp4j
@@ -32,16 +31,19 @@ class CalculatorRepositoryImpl : CalculatorRepository {
 
             // Проверка на бесконечность и NaN
             when {
-                result.isInfinite() -> CalculationResult.Error("Деление на ноль")
-                result.isNaN() -> CalculationResult.Error("Некорректное выражение")
-                else -> CalculationResult.Success(decimalFormat.format(result))
+                result.isInfinite() -> CalculationResult.Error(CalculationError.DIVISION_BY_ZERO)
+                result.isNaN() -> CalculationResult.Error(CalculationError.INVALID_EXPRESSION)
+                else -> {
+                    val decimalFormatInstance = DecimalFormat(decimalFormat)
+                    CalculationResult.Success(decimalFormatInstance.format(result))
+                }
             }
         } catch (e: ArithmeticException) {
-            CalculationResult.Error("Ошибка вычисления: ${e.message}")
+            CalculationResult.Error(CalculationError.CALCULATION_FAILED, e.message)
         } catch (e: IllegalArgumentException) {
-            CalculationResult.Error("Некорректное выражение")
+            CalculationResult.Error(CalculationError.INVALID_EXPRESSION)
         } catch (e: Exception) {
-            CalculationResult.Error("Неизвестная ошибка: ${e.message}")
+            CalculationResult.Error(CalculationError.UNKNOWN, e.message)
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.collegeapp.features.calculator.domain.usecase
 
+import com.example.collegeapp.features.calculator.domain.model.CalculationError
 import com.example.collegeapp.features.calculator.domain.model.CalculationResult
 import com.example.collegeapp.features.calculator.domain.repository.CalculatorRepository
 
@@ -16,12 +17,12 @@ class CalculateExpressionUseCase(
      * @param expression Математическое выражение
      * @return CalculationResult с результатом или ошибкой
      */
-    operator fun invoke(expression: String): CalculationResult {
+    operator fun invoke(expression: String, decimalFormat: String): CalculationResult {
         // Валидация пустого выражения
         if (expression.isBlank()) {
-            return CalculationResult.Error("Выражение пустое")
+            return CalculationResult.Error(CalculationError.EMPTY_EXPRESSION)
         }
 
-        return repository.calculate(expression)
+        return repository.calculate(expression, decimalFormat)
     }
 }

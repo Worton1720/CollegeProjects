@@ -14,5 +14,5 @@ sealed class CalculationResult {
     /**
      * Ошибка при вычислении
      */
-    data class Error(val message: String) : CalculationResult()
+    data class Error(val error: CalculationError, val message: String? = null) : CalculationResult()
 }

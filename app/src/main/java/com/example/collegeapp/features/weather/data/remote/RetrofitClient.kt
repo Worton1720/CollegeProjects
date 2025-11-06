@@ -1,5 +1,6 @@
 package com.example.collegeapp.features.weather.data.remote
 
+import com.example.collegeapp.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -9,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object RetrofitClient {
 
-    private const val BASE_URL = "https://api.openweathermap.org/"
+    private const val BASE_URL = BuildConfig.OPENWEATHER_BASE_URL
 
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
