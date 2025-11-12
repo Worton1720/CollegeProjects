@@ -1,14 +1,20 @@
 package com.example.collegeapp.features.weather.presentation.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.collegeapp.R
 import com.example.collegeapp.databinding.FragmentWeatherBinding
@@ -23,6 +29,9 @@ class WeatherFragment : Fragment() {
 
     private lateinit var weatherAdapter: WeatherAdapter
     private val weatherViewModel: WeatherViewModel by viewModel()
+    private val args: WeatherFragmentArgs by navArgs()
+
+    private var favoriteMenuItem: MenuItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,8 +50,30 @@ class WeatherFragment : Fragment() {
         observeViewModel()
         setupSearch()
 
-        // Запрашиваем погоду для города по умолчанию (Москва)
-        weatherViewModel.fetchWeather("Moscow")
+        args.cityName?.let {
+            weatherViewModel.fetchWeather(it)
+        } ?: weatherViewModel.fetchWeather("Moscow")
+
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.weather_menu, menu)
+                favoriteMenuItem = menu.findItem(R.id.action_add_to_favorites)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_add_to_favorites -> {
+                        val state = weatherViewModel.state.value
+                        if (state is WeatherState.Success) {
+                            // TODO: Get the real user ID
+                            weatherViewModel.toggleFavoriteStatus(1, state.weatherForecast.city.name)
+                        }
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupToolbar() {
@@ -80,9 +111,8 @@ class WeatherFragment : Fragment() {
 
     private fun setupRecyclerView() {
         weatherAdapter = WeatherAdapter(emptyList(), emptyList()) { forecast ->
-            val intent = Intent(requireContext(), DetailWeatherActivity::class.java)
-            intent.putExtra("forecast", forecast)
-            startActivity(intent)
+            val action = WeatherFragmentDirections.actionWeatherFragmentToDetailWeatherFragment(forecast)
+            findNavController().navigate(action)
         }
         binding.recyclerView.apply {
             adapter = weatherAdapter
@@ -107,6 +137,12 @@ class WeatherFragment : Fragment() {
                     Toast.makeText(requireContext(), formattedError, Toast.LENGTH_LONG).show()
                 }
             }
+        }
+
+        weatherViewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            favoriteMenuItem?.setIcon(
+                if (isFavorite) R.drawable.ic_star_filled else R.drawable.ic_star_border
+            )
         }
     }
 

@@ -1,11 +1,11 @@
 package com.example.collegeapp
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.collegeapp.databinding.ActivityMainBinding
-import com.example.collegeapp.features.calculator.presentation.ui.CalculatorFragment
-import com.example.collegeapp.features.weather.presentation.ui.WeatherFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,33 +16,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Устанавливаем начальный фрагмент (Погода)
-        if (savedInstanceState == null) {
-            loadFragment(WeatherFragment())
-        }
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
 
-        setupBottomNavigation()
-    }
-
-    private fun setupBottomNavigation() {
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_weather -> {
-                    loadFragment(WeatherFragment())
-                    true
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.loginFragment, R.id.registerFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
                 }
-                R.id.nav_calculator -> {
-                    loadFragment(CalculatorFragment())
-                    true
+                else -> {
+                    binding.bottomNavigationView.visibility = View.VISIBLE
                 }
-                else -> false
             }
         }
-    }
-
-    private fun loadFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
-            .commit()
     }
 }

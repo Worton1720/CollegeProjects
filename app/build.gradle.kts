@@ -4,6 +4,9 @@ import java.io.FileInputStream
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14"
+    id("androidx.navigation.safeargs.kotlin") version "2.7.0"
 }
 
 val envProperties = Properties()
@@ -75,6 +78,15 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit2.converter.gson)
+
+    // Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
     // Koin
     implementation(libs.koin.android)

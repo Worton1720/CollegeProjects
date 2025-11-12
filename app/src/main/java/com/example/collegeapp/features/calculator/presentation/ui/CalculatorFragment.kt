@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.collegeapp.R
 import com.example.collegeapp.databinding.FragmentCalculatorBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -52,7 +53,16 @@ class CalculatorFragment : Fragment() {
         binding.buttonDivide.setOnClickListener { calculatorViewModel.onInput("/") }
 
         // Специальные кнопки
-        binding.buttonEquals.setOnClickListener { calculatorViewModel.onCalculate() }
+        binding.buttonEquals.setOnClickListener {
+            calculatorViewModel.onCalculate(
+                decimalFormat = getString(R.string.calculator_decimal_format),
+                errorEmptyExpression = getString(R.string.calculator_error_empty_expression),
+                errorDivisionByZero = getString(R.string.calculator_error_division_by_zero),
+                errorInvalidExpression = getString(R.string.calculator_error_invalid_expression),
+                errorCalculationFailed = getString(R.string.calculator_error_calculation_failed),
+                errorUnknown = getString(R.string.calculator_error_unknown)
+            )
+        }
         binding.buttonClear.setOnClickListener { calculatorViewModel.onClear() }
     }
 

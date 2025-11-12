@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_weather"
-        android:icon="@android:drawable/ic_dialog_map"
-        android:title="@string/nav_weather" />
+        android:id="@+id/weatherFragment"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/weather" />
     <item
-        android:id="@+id/nav_calculator"
-        android:icon="@android:drawable/ic_menu_compass"
-        android:title="@string/nav_calculator" />
+        android:id="@+id/calculatorFragment"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="@string/calculator" />
+    <item
+        android:id="@+id/listFragment"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/list" />
 </menu>

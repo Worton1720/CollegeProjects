@@ -1,17 +1,20 @@
 package com.example.collegeapp.features.weather.domain.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 /**
  * Domain модели для погоды
  * Используются во всех слоях приложения внутри доменной логики
  */
 
+@Parcelize
 data class WeatherForecast(
     val forecasts: List<ForecastItem>,
     val city: City
-) : Serializable
+) : Parcelable
 
+@Parcelize
 data class ForecastItem(
     val dateTime: Long,
     val temperature: Double,
@@ -27,12 +30,13 @@ data class ForecastItem(
     val visibility: Int,
     val precipitationProbability: Double,
     val dateTimeText: String
-) : Serializable
+) : Parcelable
 
+@Parcelize
 data class City(
     val id: Int,
     val name: String,
     val country: String,
     val sunrise: Long,
     val sunset: Long
-) : Serializable
+) : Parcelable

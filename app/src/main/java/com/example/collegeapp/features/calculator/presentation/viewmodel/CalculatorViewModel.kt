@@ -1,4 +1,4 @@
-import android.content.Context
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,8 +13,7 @@ import com.example.collegeapp.features.calculator.presentation.state.CalculatorS
  * Управляет состоянием UI и выполняет вычисления через UseCase
  */
 class CalculatorViewModel(
-    private val calculateExpressionUseCase: CalculateExpressionUseCase,
-    private val context: Context
+    private val calculateExpressionUseCase: CalculateExpressionUseCase
 ) : ViewModel() {
 
     private val _state = MutableLiveData(CalculatorState())
@@ -57,7 +56,14 @@ class CalculatorViewModel(
     /**
      * Вычислить текущее выражение
      */
-    fun onCalculate() {
+    fun onCalculate(
+        decimalFormat: String,
+        errorEmptyExpression: String,
+        errorDivisionByZero: String,
+        errorInvalidExpression: String,
+        errorCalculationFailed: String,
+        errorUnknown: String
+    ) {
         val currentState = _state.value ?: return
         val expression = currentState.currentExpression
 
@@ -65,7 +71,6 @@ class CalculatorViewModel(
             return
         }
 
-        val decimalFormat = context.getString(R.string.calculator_decimal_format)
         when (val result = calculateExpressionUseCase(expression, decimalFormat)) {
             is CalculationResult.Success -> {
                 _state.value = currentState.copy(
@@ -76,20 +81,36 @@ class CalculatorViewModel(
             }
             is CalculationResult.Error -> {
                 _state.value = currentState.copy(
-                    displayText = mapErrorToString(result.error, result.message),
+                    displayText = mapErrorToString(
+                        result.error,
+                        result.message,
+                        errorEmptyExpression,
+                        errorDivisionByZero,
+                        errorInvalidExpression,
+                        errorCalculationFailed,
+                        errorUnknown
+                    ),
                     isError = true
                 )
             }
         }
     }
 
-    private fun mapErrorToString(error: CalculationError, message: String?): String {
+    private fun mapErrorToString(
+        error: CalculationError,
+        message: String?,
+        errorEmptyExpression: String,
+        errorDivisionByZero: String,
+        errorInvalidExpression: String,
+        errorCalculationFailed: String,
+        errorUnknown: String
+    ): String {
         return when (error) {
-            CalculationError.EMPTY_EXPRESSION -> context.getString(R.string.calculator_error_empty_expression)
-            CalculationError.DIVISION_BY_ZERO -> context.getString(R.string.calculator_error_division_by_zero)
-            CalculationError.INVALID_EXPRESSION -> context.getString(R.string.calculator_error_invalid_expression)
-            CalculationError.CALCULATION_FAILED -> context.getString(R.string.calculator_error_calculation_failed, message ?: "")
-            CalculationError.UNKNOWN -> context.getString(R.string.calculator_error_unknown, message ?: "")
+            CalculationError.EMPTY_EXPRESSION -> errorEmptyExpression
+            CalculationError.DIVISION_BY_ZERO -> errorDivisionByZero
+            CalculationError.INVALID_EXPRESSION -> errorInvalidExpression
+            CalculationError.CALCULATION_FAILED -> String.format(errorCalculationFailed, message ?: "")
+            CalculationError.UNKNOWN -> String.format(errorUnknown, message ?: "")
         }
     }
 }

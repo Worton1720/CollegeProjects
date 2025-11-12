@@ -1,7 +1,9 @@
 package com.example.collegeapp
 
 import android.app.Application
+import com.example.collegeapp.di.authModule
 import com.example.collegeapp.di.calculatorModule
+import com.example.collegeapp.di.listModule
 import com.example.collegeapp.di.weatherModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -18,7 +20,9 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 weatherModule,
-                calculatorModule
+                calculatorModule,
+                authModule,
+                listModule
             )
         }
     }

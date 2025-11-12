@@ -26,6 +26,6 @@ val calculatorModule = module {
 
     // CalculatorViewModel
     viewModel {
-        CalculatorViewModel(get(), androidContext())
+        CalculatorViewModel(get())
     }
 }
