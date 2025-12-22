@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Вход - Comfort-Rest Админ</title>
+
+		<!-- Bootstrap 5 CSS from CDN -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+
+		<style>
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+					Oxygen, Ubuntu, Cantarell, sans-serif;
+			}
+
+			.login-container {
+				background: white;
+				border-radius: 10px;
+				box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+				width: 100%;
+				max-width: 400px;
+				padding: 40px;
+			}
+
+			.login-header {
+				text-align: center;
+				margin-bottom: 30px;
+			}
+
+			.login-header h1 {
+				font-size: 28px;
+				font-weight: 600;
+				color: #333;
+				margin-bottom: 10px;
+			}
+
+			.login-header p {
+				color: #666;
+				font-size: 14px;
+			}
+
+			.form-group {
+				margin-bottom: 20px;
+			}
+
+			.form-label {
+				font-weight: 500;
+				color: #333;
+				margin-bottom: 8px;
+				display: block;
+			}
+
+			.form-control {
+				border: 1px solid #ddd;
+				border-radius: 6px;
+				padding: 10px 12px;
+				font-size: 14px;
+				transition: all 0.3s ease;
+			}
+
+			.form-control:focus {
+				border-color: #667eea;
+				box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+			}
+
+			.form-control.is-invalid {
+				border-color: #dc3545;
+			}
+
+			.invalid-feedback {
+				display: block;
+				color: #dc3545;
+				font-size: 12px;
+				margin-top: 5px;
+			}
+
+			.form-check {
+				margin-bottom: 20px;
+			}
+
+			.form-check-input {
+				margin-top: 3px;
+			}
+
+			.form-check-label {
+				color: #666;
+				font-size: 14px;
+			}
+
+			.btn-login {
+				width: 100%;
+				padding: 10px;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				border: none;
+				color: white;
+				font-weight: 600;
+				border-radius: 6px;
+				font-size: 16px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.btn-login:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+			}
+
+			.btn-login:active {
+				transform: translateY(0);
+			}
+
+			.btn-login:disabled {
+				opacity: 0.7;
+				cursor: not-allowed;
+			}
+
+			.alert {
+				border-radius: 6px;
+				border: none;
+				margin-bottom: 20px;
+			}
+
+			.alert-danger {
+				background-color: #f8d7da;
+				color: #721c24;
+			}
+
+			.alert-success {
+				background-color: #d4edda;
+				color: #155724;
+			}
+
+			.loading-spinner {
+				display: none;
+				width: 16px;
+				height: 16px;
+				border: 2px solid rgba(255, 255, 255, 0.3);
+				border-radius: 50%;
+				border-top-color: white;
+				animation: spin 0.8s linear infinite;
+				margin-right: 8px;
+			}
+
+			@keyframes spin {
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			.password-requirements {
+				background-color: #f8f9fa;
+				border: 1px solid #e9ecef;
+				border-radius: 6px;
+				padding: 12px;
+				margin-bottom: 20px;
+				font-size: 13px;
+				color: #666;
+			}
+
+			.requirement {
+				margin-bottom: 6px;
+				display: flex;
+				align-items: center;
+			}
+
+			.requirement-icon {
+				width: 16px;
+				height: 16px;
+				border-radius: 50%;
+				background: #ddd;
+				color: white;
+				font-size: 12px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-right: 8px;
+				flex-shrink: 0;
+			}
+
+			.requirement-icon.valid {
+				background: #28a745;
+			}
+
+			.requirement-icon.invalid {
+				background: #ddd;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="login-container">
+			<div class="login-header">
+				<h1>Комфорт-отдых</h1>
+				<p>Вход в панель администратора</p>
+			</div>
+
+			<div
+				id="error-message"
+				class="alert alert-danger"
+				style="display: none"
+			></div>
+
+			<form id="login-form">
+				<div class="form-group">
+					<label for="username" class="form-label">Имя пользователя</label>
+					<input
+						type="text"
+						id="username"
+						class="form-control"
+						placeholder="Введите ваше имя пользователя"
+						required
+						autocomplete="username"
+					/>
+					<div class="invalid-feedback" id="username-error"></div>
+				</div>
+
+				<div class="form-group">
+					<label for="password" class="form-label">Пароль</label>
+					<input
+						type="password"
+						id="password"
+						class="form-control"
+						placeholder="Введите ваш пароль"
+						required
+						autocomplete="current-password"
+					/>
+					<div class="invalid-feedback" id="password-error"></div>
+				</div>
+
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="remember-me" />
+					<label class="form-check-label" for="remember-me">
+						Запомнить меня на 30 дней
+					</label>
+				</div>
+
+				<button type="submit" class="btn-login" id="submit-btn">
+					<span class="loading-spinner" id="loading-spinner"></span>
+					<span id="btn-text">Войти</span>
+				</button>
+			</form>
+		</div>
+
+		<!-- Bootstrap JS -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+		<script>
+			const form = document.getElementById('login-form');
+			const usernameInput = document.getElementById('username');
+			const passwordInput = document.getElementById('password');
+			const rememberMeCheckbox = document.getElementById('remember-me');
+			const submitBtn = document.getElementById('submit-btn');
+			const errorMessageDiv = document.getElementById('error-message');
+			const loadingSpinner = document.getElementById('loading-spinner');
+			const btnText = document.getElementById('btn-text');
+
+			// Учетные данные по умолчанию для тестирования
+			const DEFAULT_USERNAME = 'admin';
+			const DEFAULT_PASSWORD = 'Admin@12345';
+
+			// Предзаполнение для тестирования (удалить в production)
+			if (localStorage.getItem('test_mode') === 'true') {
+				usernameInput.value = DEFAULT_USERNAME;
+				passwordInput.value = DEFAULT_PASSWORD;
+			}
+
+			// Обработка отправки формы
+			form.addEventListener('submit', async e => {
+				e.preventDefault();
+
+				const username = usernameInput.value.trim();
+				const password = passwordInput.value;
+
+				console.log('Попытка входа для:', username);
+
+				// Очистка предыдущих ошибок
+				clearErrors();
+				errorMessageDiv.style.display = 'none';
+
+				// Валидация входных данных
+				if (!username || !password) {
+					showError('Требуется имя пользователя и пароль');
+					return;
+				}
+
+				// Показ состояния загрузки
+				submitBtn.disabled = true;
+				loadingSpinner.style.display = 'inline-block';
+				btnText.textContent = 'Вход...';
+
+				try {
+					const response = await fetch(
+						'/api/index.php?entity=auth&action=login',
+						{
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								Accept: 'application/json',
+							},
+							body: JSON.stringify({
+								username: username,
+								password: password,
+								remember_me: rememberMeCheckbox.checked,
+							}),
+						}
+					);
+
+					const contentType = response.headers.get('content-type');
+					if (!contentType || !contentType.includes('application/json')) {
+						throw new Error('Сервер вернул не-JSON ответ');
+					}
+
+					const data = await response.json();
+
+					if (!response.ok) {
+						console.error('Ошибка входа:', data.error);
+						showError(data.error || 'Ошибка входа');
+						return;
+					}
+
+					console.log('Вход выполнен:', data.data);
+					showSuccess('Вход выполнен! Перенаправление...');
+
+					// Перенаправление на панель администратора
+					setTimeout(() => {
+						window.location.href = '/';
+					}, 1000);
+				} catch (error) {
+					console.error('Ошибка входа:', error);
+					showError(error.message || 'Ошибка сети при входе');
+				} finally {
+					// Восстановление состояния кнопки
+					submitBtn.disabled = false;
+					loadingSpinner.style.display = 'none';
+					btnText.textContent = 'Войти';
+				}
+			});
+
+			function showError(message) {
+				errorMessageDiv.textContent = message;
+				errorMessageDiv.style.display = 'block';
+				errorMessageDiv.classList.remove('alert-success');
+				errorMessageDiv.classList.add('alert-danger');
+			}
+
+			function showSuccess(message) {
+				errorMessageDiv.textContent = message;
+				errorMessageDiv.style.display = 'block';
+				errorMessageDiv.classList.remove('alert-danger');
+				errorMessageDiv.classList.add('alert-success');
+			}
+
+			function clearErrors() {
+				document.getElementById('username-error').textContent = '';
+				document.getElementById('password-error').textContent = '';
+				usernameInput.classList.remove('is-invalid');
+				passwordInput.classList.remove('is-invalid');
+			}
+
+			// Логирование учетных данных по умолчанию на консоль для первой настройки
+			console.log(
+				'%cУЧЕТНЫЕ ДАННЫЕ ПО УМОЛЧАНИЮ ДЛЯ ПЕРВОГО ВХОДА',
+				'color: green; font-weight: bold; font-size: 14px;'
+			);
+			console.log(
+				'%cИмя пользователя: ' + DEFAULT_USERNAME,
+				'color: green; font-size: 12px;'
+			);
+			console.log(
+				'%cПароль: ' + DEFAULT_PASSWORD,
+				'color: green; font-size: 12px;'
+			);
+		</script>
+	</body>
+</html>
