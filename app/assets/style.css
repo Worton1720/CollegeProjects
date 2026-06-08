@@ -1,0 +1,106 @@
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background: #FFFFFF;
+    color: #222;
+}
+
+header.topbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+    background: #F5DEB3;
+    border-bottom: 2px solid #DEB887;
+}
+
+header.topbar .logo { height: 48px; width: auto; }
+header.topbar h1 { font-size: 20px; margin: 0; flex: 0 0 auto; }
+header.topbar nav { display: flex; gap: 8px; margin-left: 12px; }
+header.topbar .spacer { flex: 1; }
+header.topbar .userbox { text-align: right; font-size: 14px; }
+header.topbar .userbox .role { color: #6b4f2a; }
+
+a.btn, button.btn, input[type=submit].btn {
+    display: inline-block;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 8px 14px;
+    border: 1px solid #DEB887;
+    background: #FFFFFF;
+    color: #222;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+}
+a.btn:hover, button.btn:hover { background: #F5DEB3; }
+.btn.accent { background: #DEB887; border-color: #c79a63; font-weight: bold; }
+.btn.danger { border-color: #c0392b; color: #c0392b; }
+.btn.danger:hover { background: #fdecea; }
+
+main { padding: 18px 20px; }
+h2.page-title { margin-top: 0; }
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    background: #F5DEB3;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+.toolbar label { font-size: 13px; color: #5a4326; }
+.toolbar input[type=text], .toolbar select {
+    font-family: inherit;
+    padding: 7px 9px;
+    border: 1px solid #DEB887;
+    border-radius: 6px;
+}
+.toolbar input[type=text] { min-width: 260px; }
+
+table.grid { border-collapse: collapse; width: 100%; background: #fff; }
+table.grid th, table.grid td {
+    border: 1px solid #e3d5bd;
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 14px;
+}
+table.grid th { background: #DEB887; }
+table.grid tr.clickable:hover { outline: 2px solid #DEB887; cursor: pointer; }
+table.grid img.thumb { height: 56px; width: 84px; object-fit: cover; border-radius: 4px; }
+
+.price-old { color: #c0392b; text-decoration: line-through; margin-right: 6px; }
+.price-new { color: #000; font-weight: bold; }
+
+.row-discount { background: #FFDEAD; }
+.row-nostock  { background: #ADD8E6; }
+
+form.card { max-width: 640px; background: #F5DEB3; padding: 20px; border-radius: 10px; }
+form.card .field { margin-bottom: 14px; }
+form.card label { display: block; font-size: 13px; margin-bottom: 4px; color: #5a4326; }
+form.card input[type=text], form.card input[type=number],
+form.card input[type=date], form.card input[type=password],
+form.card select, form.card textarea {
+    width: 100%;
+    font-family: inherit;
+    padding: 8px 10px;
+    border: 1px solid #DEB887;
+    border-radius: 6px;
+}
+form.card textarea { min-height: 80px; resize: vertical; }
+form.card .actions { display: flex; gap: 10px; margin-top: 8px; }
+.preview { height: 200px; width: 300px; object-fit: cover; border: 1px solid #DEB887; border-radius: 6px; background: #fff; }
+
+.flash { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; }
+.flash.error { background: #fdecea; border: 1px solid #c0392b; color: #922; }
+.flash.ok    { background: #eafaf1; border: 1px solid #27ae60; color: #1e7e45; }
+
+.login-wrap { max-width: 380px; margin: 60px auto; text-align: center; }
+.login-wrap img.logo { height: 90px; margin-bottom: 10px; }
+.login-wrap form { background: #F5DEB3; padding: 24px; border-radius: 12px; }
