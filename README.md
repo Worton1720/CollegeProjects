@@ -20,6 +20,7 @@
 | **PHP + SQLite + Vanilla JS** | Comfort-Rest | [`comfort-rest`](../../tree/comfort-rest) | Система администрирования турфирмы «Комфорт-отдых»: управление турами, клиентами и странами. Bootstrap 5. |
 | **React + Node/Express** | Recipe Manager | [`react-recipe-manager`](../../tree/react-recipe-manager) | Менеджер кулинарных рецептов: создание, фильтрация по категориям, REST API на Express + SQLite, UI на React + Styled Components. |
 | **Android / Kotlin** | Weather App | [`android-project`](../../tree/android-project) | Погодное приложение: прогноз по дням, поиск по городу, MVVM + Coroutines + Retrofit, Navigation Component. |
+| **Unity / C#** | Unity College | [`unity-college`](../../tree/unity-college) | Учебный Unity-проект для уроков колледжа: сцены, ассеты и шейдеры (ShaderLab). |
 | **ASP.NET** | — | [`asp.net`](../../tree/asp.net) | Зарезервированная ветка под проект на ASP.NET. |
 
 ---
@@ -33,6 +34,7 @@
 - **Frontend (React):** `react-recipe-manager`
 - **Frontend (Vanilla JS):** `comfort-rest`
 - **Mobile (Android/Kotlin):** `android-project`
+- **Game (Unity/C#):** `unity-college`
 - **Базы данных:** SQLite (`videohub`, `comfort-rest`, `react-recipe-manager`) · PostgreSQL (`exam-php-postgres`)
 
 ---
